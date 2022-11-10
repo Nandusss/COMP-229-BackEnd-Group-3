@@ -49,7 +49,11 @@ module.exports.processEditPage = (req, res, next) => {
     let updatedItem = AdlistModel({
         _id: req.body.id,
         item: req.body.item,
-        status: req.body.status,
+        status: {
+            type: req.body.status.type,
+            enum: req.body.status.enum,
+            default: req.body.status.default
+        },
         datePosted: req.body.datePosted,
         expiryDate: req.body.expiryDate,
         description : {
