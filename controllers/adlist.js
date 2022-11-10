@@ -55,6 +55,8 @@ module.exports.processEditPage = (req, res, next) => {
         description : {
             title: req.body.title,
             body: req.body.bodyDesc,
+            category: req.body.category,
+            condition: req.body.condition,
             price: req.body.price,
         },
     });
@@ -120,6 +122,8 @@ module.exports.processAddPage = (req, res, next) => {
         description : {
             title: req.body.title,
             body: req.body.bodyDesc,
+            category: req.body.category,
+            condition: req.body.condition,
             price: req.body.price,
         },
     });

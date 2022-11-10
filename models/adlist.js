@@ -10,6 +10,8 @@ let AdlistModel = mongoose.Schema(
         description: {
             title: String,
             bodyDesc: String,
+            category: String,
+            condition: String,
             price: Number
         }
     },
