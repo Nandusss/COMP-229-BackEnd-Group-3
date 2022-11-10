@@ -11,10 +11,10 @@
 </head>
 <body>
   <!-- Main Nav bar  -->  
-  <nav class="navbar fixed-top navbar-expand-sm bg-dark navbar-dark">
+  <nav class="navbar fixed-top navbar-expand-sm bg-light navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="/images/image_logo.JPG" alt="logo" style="width:40px;">
+        <img src="/images/CBS.png" alt="logo" style="width: 120px;">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -84,10 +84,14 @@
               <% if (typeof userName == 'string' && userName) { %>
                 <a class="nav-link" href="/users/signout" onclick="return confirm('Are you sure?')">Sign Out (<%= userName %>)</a>
               <% } else { %>
-                <a class="nav-link" href="/users/signin">Signin</a>
+                <a class="nav-link" href="/users/signin">Sign In</a>
               <% } %>            
             </li> 
           </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="text" placeholder="Search">
+            <button class="btn btn-success" type="button">Search</button>
+          </form>
         </div>
       </div>
     </nav>
