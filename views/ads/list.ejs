@@ -1,6 +1,6 @@
 <%- include ('../partials/header') %>
 
-    <!-- <%= InventoryList %> -->
+    <!-- <%= AdList %> -->
 
   <!-- Main Content -->
   <main class="container">
@@ -8,7 +8,7 @@
         <h1><%= title %></h1>
         <br>
         <div>
-            <a href="/inventory/add" class="btn btn-primary align-self-end" role="button">                
+            <a href="/ads/add" class="btn btn-primary align-self-end" role="button">                
                 <i class="fa-solid fa-square-plus"></i>
                 Add a new Item
             </a>                
@@ -19,32 +19,32 @@
                 <!-- Header Row-->
                 <tr>
                     <th class="text-center">Item</th>
-                    <th class="text-center">Qty</th>
+                    <th class="text-center">Date</th>
                     <th class="text-center">Status</th>
-                    <th>Size</th>
-                    <th class="text-center">Tags</th>
+                    <th>Description</th>
+                    <th class="text-center">Price</th>
                     <th class="text-center" colspan="2">Actions</th>
                 </tr>
 
                 <!-- Repeatable Template Row -->
 
-                <% for(let i = 0; i < InventoryList.length; i++) { %>
+                <% for(let i = 0; i < AdList.length; i++) { %>
                     <tr>
-                        <td class="text-center"><%= InventoryList[i].item %></td>
-                        <td class="text-center"><%= InventoryList[i].qty %></td>
-                        <td class="text-center"><%= InventoryList[i].status %></td>
+                        <td class="text-center"><%= AdList[i].item %></td>
+                        <td class="text-center"><%= AdList[i].datePosted %></td>
+                        <td class="text-center"><%= AdList[i].status %></td>
                         <td>
-                            Hight: <%= InventoryList[i].size.h %><br/>
-                            Width: <%= InventoryList[i].size.w %><br/>
-                            UOM: <%= InventoryList[i].size.uom %><br/>
+                            Title: <%= AdList[i].description.title %><br/>
+                            Body: <%= AdList[i].description.bodyDesc %><br/>
+                            Price: <%= AdList[i].description.price %><br/>
                         </td>
-                        <td class="text-center"><%= InventoryList[i].tags %></td>
+                        <td class="text-center"><%= AdList[i].description.price %></td>
                         <td class="text-center">
-                            <a href="/inventory/edit/<%= InventoryList[i]._id %>" class="btn btn-primary btn-sm">
+                            <a href="/ads/edit/<%= AdList[i]._id %>" class="btn btn-primary btn-sm">
                             <i class="fas fa-pencil-alt"></i></a>
                         </td>
                         <td class="text-center">
-                            <a href="/inventory/delete/<%= InventoryList[i]._id %>" class="btn btn-danger btn-sm">
+                            <a href="/ads/delete/<%= AdList[i]._id %>" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
