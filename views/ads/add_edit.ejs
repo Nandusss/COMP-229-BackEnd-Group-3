@@ -27,7 +27,7 @@
                     id="priceTextField"
                     placeholder="Enter a price"
                     name="price" 
-                    value="<%= item.price %>"
+                    value="<%= item.description.price %>"
                     required>
                 </div>
                 <br />
@@ -59,7 +59,7 @@
                             <label for="categoryTextField">Category</label>
                             <input type="text" class="form-control"
                             id="categoryTextField"
-                            placeholder="elctronics"
+                            placeholder="electronics"
                             name="category" 
                             value="<%= item.description.category %>"
                             required>
@@ -74,20 +74,20 @@
                             value="<%= item.description.condition %>"
                             required>
                         </div>
+
+                        <div class="form-group">
+                            <label for="descriptionTextArea">Description <span class="text-muted">[Enter an item description]</span></label>
+                            <textarea type="text" class="form-control"
+                            id="descriptionTextArea"
+                            placeholder="Enter an item description"
+                            name="bodyDesc"
+                            value="<%= item.description.bodyDesc %>"
+                            required>
+                            </textarea>
+                        </div>
                     </div>                    
                 </div>                
-                <br />
-                <div class="form-group">
-                    <label for="descriptionTextArea">Description <span class="text-muted">[Enter an item description]</span></label>
-                    <textarea type="text" class="form-control"
-                    id="descriptionTextArea"
-                    placeholder="Enter an item description"
-                    name="body"
-                    value="<%= item.description.bodyDesc %>"
-                    required>
-                    </textarea>
-                </div>
-                <br/>
+                
 
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-edit"></i> 
