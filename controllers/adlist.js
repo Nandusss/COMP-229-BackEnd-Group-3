@@ -31,6 +31,7 @@ module.exports.displayEditPage = (req, res, next) => {
         }
         else
         {
+            console.log(itemToEdit);
             //show the edit view
             res.render('ads/add_edit', {
                 title: 'Edit Item', 
@@ -54,7 +55,7 @@ module.exports.processEditPage = (req, res, next) => {
         expiryDate: req.body.expiryDate,
         description : {
             title: req.body.title,
-            body: req.body.bodyDesc,
+            bodyDesc: req.body.bodyDesc,
             category: req.body.category,
             condition: req.body.condition,
             price: req.body.price
@@ -69,8 +70,6 @@ module.exports.processEditPage = (req, res, next) => {
         }
         else
         {
-            // console.log(req.body);
-            // refresh the book list
             res.redirect('/ads/list');
         }
     });
@@ -121,7 +120,7 @@ module.exports.processAddPage = (req, res, next) => {
         expiryDate: req.body.expiryDate,
         description : {
             title: req.body.title,
-            body: req.body.bodyDesc,
+            bodyDesc: req.body.bodyDesc,
             category: req.body.category,
             condition: req.body.condition,
             price: req.body.price,
@@ -137,8 +136,6 @@ module.exports.processAddPage = (req, res, next) => {
         else
         {
             // refresh the book list
-            console.log(req.body.bodyDesc);
-            console.log(newItem);
             console.log(item);
             res.redirect('/ads/list');
         }
