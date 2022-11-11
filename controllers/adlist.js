@@ -1,18 +1,18 @@
 // create a reference to the model
-let InventoryModel = require('../models/inventory');
+let AdlistModel = require('../models/adlist');
 
-module.exports.inventoryList = function(req, res, next) {  
-    InventoryModel.find((err, inventoryList) => {
-        //console.log(inventoryList);
+module.exports.adlist = function(req, res, next) {  
+    AdlistModel.find((err, AdList) => {
+        //console.log(AdList);
         if(err)
         {
             return console.error(err);
         }
         else
         {
-            res.render('inventory/list', {
-                title: 'Inventory List', 
-                InventoryList: inventoryList,
+            res.render('ads/list', {
+                title: 'Ad List', 
+                AdList: AdList,
                 userName: req.user ? req.user.username : ''
             })            
         }
@@ -23,7 +23,7 @@ module.exports.displayEditPage = (req, res, next) => {
     
     let id = req.params.id;
 
-    InventoryModel.findById(id, (err, itemToEdit) => {
+    AdlistModel.findById(id, (err, itemToEdit) => {
         if(err)
         {
             console.log(err);
@@ -32,7 +32,7 @@ module.exports.displayEditPage = (req, res, next) => {
         else
         {
             //show the edit view
-            res.render('inventory/add_edit', {
+            res.render('ads/add_edit', {
                 title: 'Edit Item', 
                 item: itemToEdit,
                 userName: req.user ? req.user.username : ''
@@ -46,20 +46,20 @@ module.exports.processEditPage = (req, res, next) => {
 
     let id = req.params.id
 
-    let updatedItem = InventoryModel({
+    let updatedItem = AdlistModel({
         _id: req.body.id,
         item: req.body.item,
-        qty: req.body.qty,
         status: req.body.status,
-        size : {
-            h: req.body.size_h,
-            w: req.body.size_w,
-            uom: req.body.size_uom,
+        datePosted: req.body.datePosted,
+        expiryDate: req.body.expiryDate,
+        description : {
+            title: req.body.title,
+            body: req.body.bodyDesc,
+            price: req.body.price,
         },
-        tags: req.body.tags.split(",").map(word => word.trim())
     });
 
-    InventoryModel.updateOne({_id: id}, updatedItem, (err) => {
+    AdlistModel.updateOne({_id: id}, updatedItem, (err) => {
         if(err)
         {
             console.log(err);
@@ -69,7 +69,7 @@ module.exports.processEditPage = (req, res, next) => {
         {
             // console.log(req.body);
             // refresh the book list
-            res.redirect('/inventory/list');
+            res.redirect('/ads/list');
         }
     });
 
@@ -81,7 +81,7 @@ module.exports.performDelete = (req, res, next) => {
     let id = req.params.id;
 
 
-    InventoryModel.remove({_id: id}, (err) => {
+    AdlistModel.remove({_id: id}, (err) => {
         if(err)
         {
             console.log(err);
@@ -90,7 +90,7 @@ module.exports.performDelete = (req, res, next) => {
         else
         {
             // refresh the book list
-            res.redirect('/inventory/list');
+            res.redirect('/ads/list');
         }
     });
 
@@ -99,9 +99,9 @@ module.exports.performDelete = (req, res, next) => {
 
 module.exports.displayAddPage = (req, res, next) => {
 
-    let newItem = InventoryModel();
+    let newItem = AdlistModel();
 
-    res.render('inventory/add_edit', {
+    res.render('ads/add_edit', {
         title: 'Add a new Item',
         item: newItem,
         userName: req.user ? req.user.username : ''
@@ -111,20 +111,20 @@ module.exports.displayAddPage = (req, res, next) => {
 
 module.exports.processAddPage = (req, res, next) => {
 
-    let newItem = InventoryModel({
+    let newItem = AdlistModel({
         _id: req.body.id,
         item: req.body.item,
-        qty: req.body.qty,
         status: req.body.status,
-        size : {
-            h: req.body.size_h,
-            w: req.body.size_w,
-            uom: req.body.size_uom,
+        datePosted: req.body.datePosted,
+        expiryDate: req.body.expiryDate,
+        description : {
+            title: req.body.title,
+            body: req.body.bodyDesc,
+            price: req.body.price,
         },
-        tags: req.body.tags.split(",").map(word => word.trim())
     });
 
-    InventoryModel.create(newItem, (err, item) =>{
+    AdlistModel.create(newItem, (err, item) =>{
         if(err)
         {
             console.log(err);
@@ -134,7 +134,7 @@ module.exports.processAddPage = (req, res, next) => {
         {
             // refresh the book list
             console.log(item);
-            res.redirect('/inventory/list');
+            res.redirect('/ads/list');
         }
     });
     
