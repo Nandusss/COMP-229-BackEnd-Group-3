@@ -1,0 +1,34 @@
+<%- include ('../partials/header') %>
+
+<!-- Content for the Details page -->
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h1><%= title %></h1>
+
+                <div class="form-group">
+                    <label for="taskTextField">Title:</title></label>
+                    <strong><%= adItem.description.title %></strong>
+                </div>                
+                <div class="form-group">
+                    <label for="descriptionTextField">Description:</label>
+                    <strong><%= adItem.description.bodyDesc %></strong>                    
+                </div>
+                <div class="form-group">
+                    <label for="completeTextField">Price:</label>
+                    <strong><%= adItem.description.price %></strong>                    
+                </div>
+                <br />
+                
+                <a href="/ads/list" class="btn btn-warning">
+                    <i class="fas fa-undo"></i> 
+                    Cancel
+                </a>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<%- include ('../partials/footer') %>

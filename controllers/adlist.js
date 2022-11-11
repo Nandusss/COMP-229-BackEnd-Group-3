@@ -146,3 +146,26 @@ module.exports.processAddPage = (req, res, next) => {
     });
     
 }
+
+//Display the details page
+module.exports.details = (req, res, next) => {
+    
+    let id = req.params.id;
+
+    AdlistModel.findById(id, (err, Adlist) => {
+        if(err)
+        {
+            console.log(err);
+            res.end(err);
+        }
+        else
+        {
+            //show the edit view
+            res.render('ads/details', {
+                title: 'Ad Details', 
+                adItem: Adlist,
+                userName: req.user ? req.user.username : ''
+            })
+        }
+    });
+}
