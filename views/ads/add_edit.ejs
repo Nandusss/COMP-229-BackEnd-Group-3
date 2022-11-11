@@ -27,7 +27,7 @@
                     id="priceTextField"
                     placeholder="Enter a price"
                     name="price" 
-                    value="<%= item.price %>"
+                    value="<%= item.description.price %>"
                     required>
                 </div>
                 <br />
@@ -75,7 +75,6 @@
                             required>
                         </div>
 
-                        <br />
                         <div class="form-group">
                             <label for="descriptionTextArea">Description <span class="text-muted">[Enter an item description]</span></label>
                             <textarea type="text" class="form-control"
@@ -86,7 +85,6 @@
                             required>
                             </textarea>
                         </div>
-                        <br/>
                     </div>                    
                 </div>                
                 
