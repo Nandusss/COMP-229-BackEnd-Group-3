@@ -33,12 +33,12 @@
                 <br />
                 <div class="form-group">
                     <label for="statusTextField">Status</label>
-                    <input type="text" class="form-control"
-                    id="statusTextField"
-                    placeholder="Enter a status"
-                    name="status" 
-                    value="<%= item.status %>"
-                    >
+                    <select name="status" 
+                            id="statusTextField"
+                            class="form-select">
+                        <option value="Available"  <%= item.status === 'Available' ? 'selected': '' %>>Available</option>
+                        <option value="Sold" <%= item.status === 'Sold' ? 'selected': '' %>>Sold</option>
+                    </select> 
                 </div>
                 <br />
                 <div class="card">
