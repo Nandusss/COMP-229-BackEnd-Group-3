@@ -1,8 +1,90 @@
 <%- include ('partials/header') %>
 
-  <h1><%= title %></h1>
-  <p>Welcome to <%= title %></p>
+  <% if(title == "Home") { %>
 
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <div class="container">
+      <div class="container-fluid">
+        <img src="/images/ecommerce.jpg" class="img" alt="img" style="width:380px; height: 100; float: inline-end;">
+        <a class="navbar-brand" href="javascript:void(0)"><img src="/images/Chafanarosa_Buy__Sell.png" alt="logo1" style="width:300px;"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+          <button type="button" class="btn btn-outline-primary">Cars</button>
+          <button type="button" class="btn btn-outline-secondary">Electronics</button>
+          <button type="button" class="btn btn-outline-success">Fashion</button>
+          <button type="button" class="btn btn-outline-info">Sports</button>
+          <button type="button" class="btn btn-outline-warning">Other</button>
+        </div>
+        <form class="d-flex">
+          <input class="form-control me-2" type="text" placeholder="Search">
+          <button class="btn btn-primary" type="button">Search</button>
+        </form>
+      </div>
+    </div>
+    </nav>
+
+  <div class="w3-main" style="margin-left:540px; width: 800px;">
+      <!-- First Photo Grid-->
+  <div class="w3-row-padding">
+    <div class="w3-third w3-container w3-margin-bottom" >
+      <img src="/images/img1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>IPhone 6S</b></p>
+        <p>Price: $200</p>
+        <p>Space Grey, 64GB</p>
+      </div>
+    </div>
+    <div class="w3-third w3-container w3-margin-bottom">
+      <img src="/images/img2.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>2013 BMW 320i xDrive</b></p>
+        <p>Price: $14,995</p>
+        <p>Location:New Brunswick</p>
+      </div>
+    </div>
+    <div class="w3-third w3-container">
+      <img src="/images/img3.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>Marvin Richards Fur Coat</b></p>
+        <p>Price: $45</p>
+        <p>Size: XL</p>
+      </div>
+    </div>
+  </div>
   
+  <!-- Second Photo Grid-->
+  <div class="w3-row-padding">
+    <div class="w3-third w3-container w3-margin-bottom">
+      <img src="/images/img4.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>Starbucks Barista Espresso Machine</b></p>
+        <p>Price: $75</p>
+      </div>
+    </div>
+    <div class="w3-third w3-container w3-margin-bottom">
+      <img src="/images/img5.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>FS Elite Bicycle</b></p>
+        <p>Price: $125</p>
+        <p>Speed: 21</p>
+      </div>
+    </div>
+    <div class="w3-third w3-container">
+      <img src="/images/img6.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>Reception Desk</b></p>
+        <p>Pice: $225</p>
+        <p>Length: 56 inch</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <% } else{ %>
+
+  <% } %>
 
 <%- include ('partials/footer') %>
