@@ -47,6 +47,12 @@
                             Condition: <%= AdList[i].description.condition %><br/>
                         </td>
                         <td class="text-center"><%= AdList[i].description.price %></td>
+
+                        <!-- buttons -->
+                        <td class="text-center">
+                            <a href="/ads/details/<%= AdList[i]._id %>" class="btn btn-success btn-sm"> 
+                            <i class="fas fa-info"></i> </a>
+                        </td>
                         <td class="text-center">
                             <a href="/ads/edit/<%= AdList[i]._id %>" class="btn btn-primary btn-sm">
                             <i class="fas fa-pencil-alt"></i></a>
@@ -55,6 +61,7 @@
                             <a href="/ads/delete/<%= AdList[i]._id %>" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash-alt"></i></a>
                         </td>
+                        
                     </tr>
                 <% } %>
             </table>
