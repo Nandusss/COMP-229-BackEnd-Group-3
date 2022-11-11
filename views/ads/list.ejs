@@ -19,7 +19,7 @@
                 <!-- Header Row-->
                 <tr>
                     <th class="text-center">Item</th>
-                    <th class="text-center">Date</th>
+                    <th class="text-center">Expiry Date</th>
                     <th class="text-center">Status</th>
                     <th>Description</th>
                     <th class="text-center">Price</th>
@@ -31,7 +31,14 @@
                 <% for(let i = 0; i < AdList.length; i++) { %>
                     <tr>
                         <td class="text-center"><%= AdList[i].item %></td>
-                        <td class="text-center"><%= AdList[i].datePosted %></td>
+
+                        <!-- checking expiry date is empty, if not display the date in appropriate format using moment -->
+                        <% if(!AdList[i].expiryDate) { %>
+                            <td class="text-center">Unlimited</td>
+                        <% } else { %>
+                            <td class="text-center"><%= moment(AdList[i].expiryDate).format("YYYY-MM-DD") %></td>
+                        <% } %>
+
                         <td class="text-center"><%= AdList[i].status %></td>
                         <td>
                             Title: <%= AdList[i].description.title %><br/>

@@ -1,5 +1,6 @@
 // create a reference to the model
 let AdlistModel = require('../models/adlist');
+let moment = require('moment'); //moment to parse the dates in correct format
 
 module.exports.adlist = function(req, res, next) {  
     AdlistModel.find((err, AdList) => {
@@ -13,6 +14,7 @@ module.exports.adlist = function(req, res, next) {
             res.render('ads/list', {
                 title: 'Ad List', 
                 AdList: AdList,
+                moment: moment,
                 userName: req.user ? req.user.username : ''
             })            
         }
@@ -36,6 +38,7 @@ module.exports.displayEditPage = (req, res, next) => {
             res.render('ads/add_edit', {
                 title: 'Edit Item', 
                 item: itemToEdit,
+                moment: moment,
                 userName: req.user ? req.user.username : ''
             })
         }
@@ -51,7 +54,7 @@ module.exports.processEditPage = (req, res, next) => {
         _id: req.body.id,
         item: req.body.item,
         status: req.body.status,
-        datePosted: req.body.datePosted,
+        activeDate: req.body.activeDate,
         expiryDate: req.body.expiryDate,
         description : {
             title: req.body.title,
@@ -105,6 +108,7 @@ module.exports.displayAddPage = (req, res, next) => {
     res.render('ads/add_edit', {
         title: 'Add a new Item',
         item: newItem,
+        moment: moment,
         userName: req.user ? req.user.username : ''
     })          
 
@@ -116,7 +120,7 @@ module.exports.processAddPage = (req, res, next) => {
         _id: req.body.id,
         item: req.body.item,
         status: req.body.status,
-        datePosted: req.body.datePosted,
+        activeDate: req.body.activeDate,
         expiryDate: req.body.expiryDate,
         description : {
             title: req.body.title,

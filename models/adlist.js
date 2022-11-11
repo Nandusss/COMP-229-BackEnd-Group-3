@@ -9,7 +9,10 @@ let AdlistModel = mongoose.Schema(
             enum: ['Available','Sold'],
             default: 'Available'
         },
-        datePosted: Date,
+        activeDate: {
+            type: Date,
+            default: Date()
+        },
         expiryDate: Date,
         description: {
             title: String,
