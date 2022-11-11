@@ -4,12 +4,21 @@ let mongoose = require('mongoose');
 let AdlistModel = mongoose.Schema(
     {
         item: String,
-        status: String,
-        datePosted: Date,
+        status: {
+            type: String,
+            enum: ['Available','Sold'],
+            default: 'Available'
+        },
+        activeDate: {
+            type: Date,
+            default: Date()
+        },
         expiryDate: Date,
         description: {
             title: String,
             bodyDesc: String,
+            category: String,
+            condition: String,
             price: Number
         }
     },

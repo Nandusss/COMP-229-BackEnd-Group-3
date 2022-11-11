@@ -19,11 +19,11 @@
                 <!-- Header Row-->
                 <tr>
                     <th class="text-center">Item</th>
-                    <th class="text-center">Date</th>
+                    <th class="text-center">Expiry Date</th>
                     <th class="text-center">Status</th>
                     <th>Description</th>
                     <th class="text-center">Price</th>
-                    <th class="text-center" colspan="2">Actions</th>
+                    <th class="text-center" colspan="3">Actions</th>
                 </tr>
 
                 <!-- Repeatable Template Row -->
@@ -31,14 +31,28 @@
                 <% for(let i = 0; i < AdList.length; i++) { %>
                     <tr>
                         <td class="text-center"><%= AdList[i].item %></td>
-                        <td class="text-center"><%= AdList[i].datePosted %></td>
+
+                        <!-- checking expiry date is empty, if not display the date in appropriate format using moment -->
+                        <% if(!AdList[i].expiryDate) { %>
+                            <td class="text-center">Unlimited</td>
+                        <% } else { %>
+                            <td class="text-center"><%= moment(AdList[i].expiryDate).format("YYYY-MM-DD") %></td>
+                        <% } %>
+
                         <td class="text-center"><%= AdList[i].status %></td>
                         <td>
                             Title: <%= AdList[i].description.title %><br/>
                             Body: <%= AdList[i].description.bodyDesc %><br/>
-                            Price: <%= AdList[i].description.price %><br/>
+                            Category: <%= AdList[i].description.category %><br/>
+                            Condition: <%= AdList[i].description.condition %><br/>
                         </td>
                         <td class="text-center"><%= AdList[i].description.price %></td>
+
+                        <!-- buttons -->
+                        <td class="text-center">
+                            <a href="/ads/details/<%= AdList[i]._id %>" class="btn btn-success btn-sm"> 
+                            <i class="fas fa-info"></i> </a>
+                        </td>
                         <td class="text-center">
                             <a href="/ads/edit/<%= AdList[i]._id %>" class="btn btn-primary btn-sm">
                             <i class="fas fa-pencil-alt"></i></a>
@@ -47,6 +61,7 @@
                             <a href="/ads/delete/<%= AdList[i]._id %>" class="btn btn-danger btn-sm">
                             <i class="fas fa-trash-alt"></i></a>
                         </td>
+                        
                     </tr>
                 <% } %>
             </table>

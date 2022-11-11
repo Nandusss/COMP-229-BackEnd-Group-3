@@ -15,6 +15,9 @@ function requireAuth(req, res, next)
     next();
 }
 
+// Route for Details
+router.get('/details/:id', adlistController.details);
+
 /* GET list of items */
 router.get('/list', adlistController.adlist);
 
