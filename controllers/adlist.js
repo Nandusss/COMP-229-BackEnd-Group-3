@@ -49,11 +49,7 @@ module.exports.processEditPage = (req, res, next) => {
     let updatedItem = AdlistModel({
         _id: req.body.id,
         item: req.body.item,
-        status: {
-            type: req.body.status.type,
-            enum: req.body.status.enum,
-            default: req.body.status.default
-        },
+        status: req.body.status,
         datePosted: req.body.datePosted,
         expiryDate: req.body.expiryDate,
         description : {
@@ -61,7 +57,7 @@ module.exports.processEditPage = (req, res, next) => {
             body: req.body.bodyDesc,
             category: req.body.category,
             condition: req.body.condition,
-            price: req.body.price,
+            price: req.body.price
         },
     });
 
@@ -141,6 +137,8 @@ module.exports.processAddPage = (req, res, next) => {
         else
         {
             // refresh the book list
+            console.log(req.body.bodyDesc);
+            console.log(newItem);
             console.log(item);
             res.redirect('/ads/list');
         }
