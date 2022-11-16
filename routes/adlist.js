@@ -31,22 +31,15 @@ function requireAuth(req, res, next)
     next();
 }
 
-// Route for Details
-router.get('/details/:id', adlistController.details);
 
 /* GET list of items */
 router.get('/list', adlistController.adlist);
 
 // Routers for edit
-router.get('/edit/:id', adlistController.displayEditPage);
 router.post('/edit/:id', adlistController.processEditPage);
 
 // Delete
 router.get('/delete/:id', adlistController.performDelete);
-
-
-/* GET Route for displaying the Add page - CREATE Operation */
-router.get('/add', adlistController.displayAddPage);
 
 /* POST Route for processing the Add page - CREATE Operation */
 router.post('/add', adlistController.processAddPage);
