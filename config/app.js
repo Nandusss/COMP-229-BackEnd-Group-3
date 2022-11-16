@@ -16,16 +16,13 @@
 
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
 var logger = require('morgan');
-let compress = require('compression');
-let bodyParser = require('body-parser');
 let passport = require('passport');
 let cors = require('cors');
 
 var indexRouter = require('../routes/index');
 var usersRouter = require('../routes/users');
-var inventoryRouter = require('../routes/adlist');
+var adlistRouter = require('../routes/adlist');
 
 var app = express();
 
@@ -40,9 +37,10 @@ app.use(express.urlencoded({ extended: false }));
 // Sets up passport
 app.use(passport.initialize());
 
+//routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/inventory', inventoryRouter);
+app.use('/ads', adlistRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
