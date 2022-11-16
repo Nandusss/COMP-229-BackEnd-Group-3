@@ -36,6 +36,11 @@ let AdlistModel = mongoose.Schema(
             category: String,
             condition: String,
             price: Number
+        },
+        // Adds relationship with User
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
         }
     },
     {

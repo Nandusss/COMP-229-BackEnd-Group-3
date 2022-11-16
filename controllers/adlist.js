@@ -127,7 +127,7 @@ module.exports.performDelete = (req, res, next) => {
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
         });
     
-        AdlistModel.updateOne({_id: id}, updatedItem, (err) => {
+        AdlistModel.deleteOne({_id: id}, updatedItem, (err) => {
             if(err)
             {
                 console.log(err);
@@ -175,13 +175,13 @@ module.exports.processAddPage = (req, res, next) => {
                 category: req.body.category,
                 condition: req.body.condition,
                 price: req.body.price
-            },
-            tags: (req.body.tags == null || req.body.tags == "") ? "": req.body.tags.split(",").map(word => word.trim()),
+            }
+            // tags: (req.body.tags == null || req.body.tags == "") ? "": req.body.tags.split(",").map(word => word.trim()),
             // If it does not have an owner it assumes the ownership otherwise it transfers it.
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
         });
     
-        AdlistModel.updateOne({_id: id}, updatedItem, (err) => {
+        AdlistModel.create({_id: id}, updatedItem, (err) => {
             if(err)
             {
                 console.log(err);
@@ -201,6 +201,7 @@ module.exports.processAddPage = (req, res, next) => {
                         message: 'Item updated successfully.'
                     }
                 )
+                console.log(updatedItem);
             }
         });
     } catch (error) {
