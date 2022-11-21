@@ -73,43 +73,29 @@ module.exports.getAdvertisements = async function (req, res, next) {
     }
 }
 
-module.exports.updateAdvertisement = (req, res, next) => {
+module.exports.updateAdvertisement = async (req, res, next) => {
     try {
-        let id = req.params.id;
-
-        let updatedItem = Advertisement({
+        let updatedItem = await Advertisement.findOneAndUpdate({ _id: req.params.id }, {
             adsTitle: req.body.adsTitle,
             price: req.body.price,
             status: req.body.status,
             description: {
-                itemName: req.body.itemName,
-                description: req.body.description,
-                category: req.body.category,
-                condition: req.body.condition,
+                itemName: req.body.description.itemName,
+                description: req.body.description.description,
+                category: req.body.description.category,
+                condition: req.body.description.condition,
             },
             activeDate: req.body.activeDate,
-            expiryDate: req.body.expiryDate,
+            expiryDate: req.body.expiryDate
             // If it does not have an owner it assumes the ownership otherwise it transfers it.
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
-        });
+        }, { returnOriginal: false })
 
-        Advertisement.updateOne({ _id: id }, updatedItem, (err) => {
-            if (err) {
-                console.log(err);
+        console.log(updatedItem)
+        res.status(200).json({
+            data: updatedItem
+        })
 
-                return res.status(400).json(
-                    {
-                        success: false,
-                        message: getErrorMessage(err)
-                    }
-                );
-            }
-            res.status(200).json(
-                {
-                    data: updatedItem
-                }
-            )
-        });
     } catch (error) {
         return res.status(400).json(
             {
@@ -128,10 +114,10 @@ module.exports.createAdvertisement = (req, res, next) => {
             price: req.body.price,
             status: req.body.status,
             description: {
-                itemName: req.body.itemName,
-                description: req.body.description,
-                category: req.body.category,
-                condition: req.body.condition,
+                itemName: req.body.description.itemName,
+                description: req.body.description.description,
+                category: req.body.description.category,
+                condition: req.body.description.condition,
             },
             activeDate: req.body.activeDate,
             expiryDate: req.body.expiryDate,
