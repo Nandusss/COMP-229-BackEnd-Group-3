@@ -17,8 +17,16 @@
 var express = require('express');
 var router = express.Router();
 
-let adlistController = require('../controllers/adlist');
+let advertisementController = require('../controllers/adlist');
 let authController = require('../controllers/auth');
 
+
+router.route('/')
+	.post(advertisementController.createAdvertisement)
+	.get(advertisementController.getAdvertisements)
+
+router.route('/:id')
+	.get(advertisementController.getAdvertisement)
+	.patch(advertisementController.updateAdvertisement)
 
 module.exports = router;

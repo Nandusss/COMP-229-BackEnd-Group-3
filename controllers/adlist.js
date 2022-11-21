@@ -1,28 +1,28 @@
 /*
-	Comp-229 Web Application Development Group 3
-	Chafanarosa Buy and Sell Used Products
-	This Website will enable users to post and view advertisements for used		
-	products
+    Comp-229 Web Application Development Group 3
+    Chafanarosa Buy and Sell Used Products
+    This Website will enable users to post and view advertisements for used		
+    products
 	
-	Developers
-	Fatimah Binti Yasin – 301193282
-	Nandagopan Dilip – 301166925
-	Chantelle Lawson – 301216199
-	Ronald Jr Ombao – 301213219
-	Santiago Sanchez Calle – 300648373
+    Developers
+    Fatimah Binti Yasin – 301193282
+    Nandagopan Dilip – 301166925
+    Chantelle Lawson – 301216199
+    Ronald Jr Ombao – 301213219
+    Santiago Sanchez Calle – 300648373
 
-	Copyright All Rights Reserved
+    Copyright All Rights Reserved
 */
 
 // create a reference to the model
-let AdlistModel = require('../models/adlist');
+let Advertisement = require('../models/advertisement');
 
-function getErrorMessage(err) {    
+function getErrorMessage(err) {
     if (err.errors) {
         for (let errName in err.errors) {
             if (err.errors[errName].message) return err.errors[errName].message;
         }
-    } 
+    }
     if (err.message) {
         return err.message;
     } else {
@@ -30,186 +30,145 @@ function getErrorMessage(err) {
     }
 };
 
-module.exports.adlist = async function(req, res, next) {
+module.exports.getAdvertisement = async function (req, res, next) {
     try {
-        let Adlist = await AdlistModel.find().populate({
+        let advertisements = await Advertisement.findOne({ _id: req.params.id }).populate({
+            path: 'owner',
+            select: 'firstName lastName email username admin created'
+        }).exec();
+
+        res.status(200).json({
+            data: advertisements
+        });
+
+    } catch (error) {
+        return res.status(400).json(
+            {
+                success: false,
+                message: getErrorMessage(error)
+            }
+        );
+    }
+}
+
+
+module.exports.getAdvertisements = async function (req, res, next) {
+    try {
+        let advertisements = await Advertisement.find().populate({
             path: 'owner',
             select: 'firstName lastName email username admin created'
         });
 
-        res.status(200).json(Adlist);
-        
+        res.status(200).json({
+            data: advertisements
+        });
+
     } catch (error) {
         return res.status(400).json(
-            { 
-                success: false, 
+            {
+                success: false,
                 message: getErrorMessage(error)
             }
         );
     }
 }
 
-
-module.exports.processEditPage = (req, res, next) => {
+module.exports.updateAdvertisement = (req, res, next) => {
     try {
         let id = req.params.id;
 
-        let updatedItem = AdlistModel({
-            _id: req.body.id,
-            item: req.body.item,
+        let updatedItem = Advertisement({
+            adsTitle: req.body.adsTitle,
+            price: req.body.price,
             status: req.body.status,
-            activeDate: req.body.activeDate,
-            expiryDate: req.body.expiryDate,
-            description : {
-                title: req.body.title,
-                bodyDesc: req.body.bodyDesc,
+            description: {
+                itemName: req.body.itemName,
+                description: req.body.description,
                 category: req.body.category,
                 condition: req.body.condition,
-                price: req.body.price
             },
-            tags: (req.body.tags == null || req.body.tags == "") ? "": req.body.tags.split(",").map(word => word.trim()),
+            activeDate: req.body.activeDate,
+            expiryDate: req.body.expiryDate,
             // If it does not have an owner it assumes the ownership otherwise it transfers it.
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
         });
-    
-        AdlistModel.updateOne({_id: id}, updatedItem, (err) => {
-            if(err)
-            {
+
+        AdlistModel.updateOne({ _id: id }, updatedItem, (err) => {
+            if (err) {
                 console.log(err);
- 
+
                 return res.status(400).json(
-                    { 
-                        success: false, 
+                    {
+                        success: false,
                         message: getErrorMessage(err)
                     }
                 );
             }
-            else
-            {
-                res.status(200).json(
-                    {
-                        success: true,
-                        message: 'Item updated successfully.'
-                    }
-                )
-            }
+            res.status(200).json(
+                {
+                    data: updatedItem
+                }
+            )
         });
     } catch (error) {
         return res.status(400).json(
-            { 
-                success: false, 
+            {
+                success: false,
                 message: getErrorMessage(error)
             }
         );
     }
 }
 
-
-module.exports.performDelete = (req, res, next) => {
+module.exports.createAdvertisement = (req, res, next) => {
     try {
-        let id = req.params.id;
-
-        let updatedItem = AdlistModel({
-            _id: req.body.id,
-            item: req.body.item,
+        let newAdvertisement = Advertisement({
+            adsTitle: req.body.adsTitle,
+            price: req.body.price,
             status: req.body.status,
-            activeDate: req.body.activeDate,
-            expiryDate: req.body.expiryDate,
-            description : {
-                title: req.body.title,
-                bodyDesc: req.body.bodyDesc,
+            description: {
+                itemName: req.body.itemName,
+                description: req.body.description,
                 category: req.body.category,
                 condition: req.body.condition,
-                price: req.body.price
             },
-            tags: (req.body.tags == null || req.body.tags == "") ? "": req.body.tags.split(",").map(word => word.trim()),
-            // If it does not have an owner it assumes the ownership otherwise it transfers it.
-            // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
-        });
-    
-        AdlistModel.deleteOne({_id: id}, updatedItem, (err) => {
-            if(err)
-            {
-                console.log(err);
- 
-                return res.status(400).json(
-                    { 
-                        success: false, 
-                        message: getErrorMessage(err)
-                    }
-                );
-            }
-            else
-            {
-                res.status(200).json(
-                    {
-                        success: true,
-                        message: 'Item updated successfully.'
-                    }
-                )
-            }
-        });
-    } catch (error) {
-        return res.status(400).json(
-            { 
-                success: false, 
-                message: getErrorMessage(error)
-            }
-        );
-    }
-}
-
-module.exports.processAddPage = (req, res, next) => {
-    try {
-        let id = req.params.id;
-
-        let updatedItem = AdlistModel({
-            _id: req.body.id,
-            item: req.body.item,
-            status: req.body.status,
             activeDate: req.body.activeDate,
             expiryDate: req.body.expiryDate,
-            description : {
-                title: req.body.title,
-                bodyDesc: req.body.bodyDesc,
-                category: req.body.category,
-                condition: req.body.condition,
-                price: req.body.price
-            }
             // tags: (req.body.tags == null || req.body.tags == "") ? "": req.body.tags.split(",").map(word => word.trim()),
             // If it does not have an owner it assumes the ownership otherwise it transfers it.
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
         });
-    
-        AdlistModel.create({_id: id}, updatedItem, (err) => {
-            if(err)
-            {
+
+        AdlistModel.create(newAdvertisement, (err) => {
+            if (err) {
                 console.log(err);
- 
+
                 return res.status(400).json(
-                    { 
-                        success: false, 
+                    {
+                        success: false,
                         message: getErrorMessage(err)
                     }
                 );
             }
-            else
-            {
-                res.status(200).json(
-                    {
-                        success: true,
-                        message: 'Item updated successfully.'
-                    }
-                )
-                console.log(updatedItem);
-            }
+
+            res.status(200).json({
+                data: newAdvertisement
+            })
+            console.log(newAdvertisement);
         });
     } catch (error) {
         return res.status(400).json(
-            { 
-                success: false, 
+            {
+                success: false,
                 message: getErrorMessage(error)
             }
         );
     }
+}
+
+module.exports.performDelete = (req, res, next) => {
+    res.status(405).json({
+        success: false,
+        message: 'Method not allowed'
+    })
 }

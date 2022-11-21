@@ -20,6 +20,7 @@ let mongoose = require('mongoose');
 let AdlistModel = mongoose.Schema(
     {
         adsTitle: String,
+        price: Number,
         status: {
             type: String,
             enum: ['Available', 'Sold'],
@@ -49,8 +50,8 @@ let AdlistModel = mongoose.Schema(
         }
     },
     {
-        collection: "Adlist"
+        collection: "Advertisement"
     }
 );
 
-module.exports = mongoose.model('Adlist', AdlistModel);
+module.exports = mongoose.model('Advertisement', AdlistModel);
