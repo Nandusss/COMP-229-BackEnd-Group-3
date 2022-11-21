@@ -40,7 +40,7 @@ app.use(passport.initialize());
 //routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/ads', adlistRouter);
+app.use('/advertisements', adlistRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

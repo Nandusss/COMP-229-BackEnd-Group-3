@@ -21,16 +21,4 @@ let adlistController = require('../controllers/adlist');
 let authController = require('../controllers/auth');
 
 
-/* GET list of items */
-router.get('/list', adlistController.adlist);
-
-// Routers for edit
-router.post('/edit/:id', adlistController.processEditPage);
-
-// Delete
-router.get('/delete/:id', adlistController.performDelete);
-
-/* POST Route for processing the Add page - CREATE Operation */
-router.post('/add', adlistController.processAddPage);
-
 module.exports = router;
