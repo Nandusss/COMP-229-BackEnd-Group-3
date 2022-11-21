@@ -32,14 +32,12 @@ function getErrorMessage(err) {
 
 module.exports.getAdvertisement = async function (req, res, next) {
     try {
-        let advertisements = await Advertisement.findOne({ _id: req.params.id }).populate({
+        let advertisement = await Advertisement.findOne({ _id: req.params.id }).populate({
             path: 'owner',
             select: 'firstName lastName email username admin created'
         }).exec();
 
-        res.status(200).json({
-            data: advertisements
-        });
+        res.status(200).json(advertisement);
 
     } catch (error) {
         return res.status(400).json(
@@ -59,9 +57,7 @@ module.exports.getAdvertisements = async function (req, res, next) {
             select: 'firstName lastName email username admin created'
         });
 
-        res.status(200).json({
-            data: advertisements
-        });
+        res.status(200).json(advertisements);
 
     } catch (error) {
         return res.status(400).json(
@@ -92,9 +88,7 @@ module.exports.updateAdvertisement = async (req, res, next) => {
         }, { returnOriginal: false })
 
         console.log(updatedItem)
-        res.status(200).json({
-            data: updatedItem
-        })
+        res.status(200).json(updatedItem)
 
     } catch (error) {
         return res.status(400).json(
