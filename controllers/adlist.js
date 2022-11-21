@@ -93,7 +93,7 @@ module.exports.updateAdvertisement = (req, res, next) => {
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
         });
 
-        AdlistModel.updateOne({ _id: id }, updatedItem, (err) => {
+        Advertisement.updateOne({ _id: id }, updatedItem, (err) => {
             if (err) {
                 console.log(err);
 
@@ -121,6 +121,7 @@ module.exports.updateAdvertisement = (req, res, next) => {
 }
 
 module.exports.createAdvertisement = (req, res, next) => {
+    console.log(req.body);
     try {
         let newAdvertisement = Advertisement({
             adsTitle: req.body.adsTitle,
@@ -139,7 +140,7 @@ module.exports.createAdvertisement = (req, res, next) => {
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
         });
 
-        AdlistModel.create(newAdvertisement, (err) => {
+        Advertisement.create(newAdvertisement, (err) => {
             if (err) {
                 console.log(err);
 

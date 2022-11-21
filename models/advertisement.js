@@ -17,13 +17,13 @@
 let mongoose = require('mongoose');
 
 // Create a model class
-let AdlistModel = mongoose.Schema(
+let advertisementSchema = mongoose.Schema(
     {
         adsTitle: String,
         price: Number,
         status: {
             type: String,
-            enum: ['Available', 'Sold'],
+            enum: ['available', 'sold'],
             default: 'Available'
         },
         activeDate: {
@@ -34,7 +34,7 @@ let AdlistModel = mongoose.Schema(
         description: {
             itemName: String,
             description: String,
-            categoy: {
+            category: {
                 type: String,
                 enum: ['cars', 'electronics', 'fashion', 'sports', 'others']
             },
@@ -50,8 +50,8 @@ let AdlistModel = mongoose.Schema(
         }
     },
     {
-        collection: "Advertisement"
+        collection: "Advertisements"
     }
 );
 
-module.exports = mongoose.model('Advertisement', AdlistModel);
+module.exports = mongoose.model('Advertisement', advertisementSchema);
