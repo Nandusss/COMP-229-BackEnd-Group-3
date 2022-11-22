@@ -100,10 +100,13 @@ module.exports.updateAdvertisement = async (req, res, next) => {
     }
 }
 
-module.exports.createAdvertisement = (req, res, next) => {
+module.exports.createAdvertisement = async (req, res, next) => {
     console.log(req.body);
     try {
-        let newAdvertisement = Advertisement({
+        // tags: (req.body.tags == null || req.body.tags == "") ? "": req.body.tags.split(",").map(word => word.trim()),
+        // If it does not have an owner it assumes the ownership otherwise it transfers it.
+        // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
+        let newAds = await Advertisement.create({
             adsTitle: req.body.adsTitle,
             price: req.body.price,
             status: req.body.status,
@@ -115,28 +118,10 @@ module.exports.createAdvertisement = (req, res, next) => {
             },
             activeDate: req.body.activeDate,
             expiryDate: req.body.expiryDate,
-            // tags: (req.body.tags == null || req.body.tags == "") ? "": req.body.tags.split(",").map(word => word.trim()),
-            // If it does not have an owner it assumes the ownership otherwise it transfers it.
-            // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
-        });
+        })
 
-        Advertisement.create(newAdvertisement, (err) => {
-            if (err) {
-                console.log(err);
+        res.status(200).json(newAds);
 
-                return res.status(400).json(
-                    {
-                        success: false,
-                        message: getErrorMessage(err)
-                    }
-                );
-            }
-
-            res.status(200).json({
-                data: newAdvertisement
-            })
-            console.log(newAdvertisement);
-        });
     } catch (error) {
         return res.status(400).json(
             {
