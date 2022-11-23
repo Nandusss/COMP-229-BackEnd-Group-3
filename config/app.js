@@ -34,6 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Sets up passport
+const passportConfig = require('../config/local')(passport)
 app.use(passport.initialize());
 
 //routes
