@@ -17,7 +17,11 @@
 var express = require('express');
 var router = express.Router();
 
+<<<<<<< Updated upstream:routes/adlist.js
 let adlistController = require('../controllers/adlist');
+=======
+let advertisementController = require('../controllers/advertisement');
+>>>>>>> Stashed changes:routes/advertisement.js
 let authController = require('../controllers/auth');
 
 
