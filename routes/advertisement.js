@@ -17,7 +17,7 @@
 var express = require('express');
 var router = express.Router();
 
-let advertisementController = require('../controllers/adlist');
+let advertisementController = require('../controllers/advertisement');
 let authController = require('../controllers/auth');
 
 

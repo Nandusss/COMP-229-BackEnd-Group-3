@@ -28,9 +28,13 @@ let advertisementSchema = mongoose.Schema(
         },
         activeDate: {
             type: Date,
+            format: "%Y/%d/%m",
             default: Date()
         },
-        expiryDate: Date,
+        expiryDate: {
+            type: Date,
+            format: "%Y/%d/%m"
+        },
         description: {
             itemName: String,
             description: String,
