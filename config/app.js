@@ -38,7 +38,7 @@ const passportConfig = require('../config/local')(passport)
 app.use(passport.initialize());
 
 //routes
-app.use('/users', usersRouter);
+app.use('/api/auth', usersRouter);
 app.use('/api/advertisements', adlistRouter);
 
 // catch 404 and forward to error handler
