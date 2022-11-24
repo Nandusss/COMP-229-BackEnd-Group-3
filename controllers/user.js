@@ -98,8 +98,7 @@ module.exports.signin = function(req, res, next){
             // Generating the JWT token.
             const payload = 
               { 
-                id: user._id, 
-                email: user.email 
+                id: user._id
               };
             const token = jwt.sign(
               { 
@@ -108,14 +107,14 @@ module.exports.signin = function(req, res, next){
               config.SECRETKEY, 
               { 
                 algorithm: 'HS512', 
-                expiresIn: "20min"
+                expiresIn: "30min"
               }
             );
     
             return res.json(
               { 
                 success: true, 
-                token: token 
+                token: token
               }
             );
           }
