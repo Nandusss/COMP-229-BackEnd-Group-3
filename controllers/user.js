@@ -114,7 +114,9 @@ module.exports.signin = function(req, res, next){
             return res.json(
               { 
                 success: true, 
-                token: token
+                token: token,
+                iat: new Date(jwt.decode(token).iat * 1000),
+                exp: new Date(jwt.decode(token).exp * 1000)
               }
             );
           }
