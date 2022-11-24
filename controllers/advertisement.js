@@ -37,7 +37,10 @@ module.exports.getAdvertisement = async function (req, res, next) {
             select: 'firstName lastName email username admin created'
         }).exec();
 
-        res.status(200).json(advertisement);
+        res.status(200).json({
+            success: true,
+            advertisement: advertisement
+        });
 
     } catch (error) {
         return res.status(400).json(
@@ -57,7 +60,10 @@ module.exports.getAdvertisements = async function (req, res, next) {
             select: 'firstName lastName email username admin created'
         });
 
-        res.status(200).json(advertisements);
+        res.status(200).json({
+            success: true,
+            advertisements: advertisements
+        });
 
     } catch (error) {
         return res.status(400).json(
@@ -88,7 +94,10 @@ module.exports.updateAdvertisement = async (req, res, next) => {
         }, { returnOriginal: false })
 
         console.log(updatedItem)
-        res.status(200).json(updatedItem)
+        res.status(200).json({
+            success: true,
+            advertisement: updatedItem
+        })
 
     } catch (error) {
         return res.status(400).json(
@@ -120,7 +129,10 @@ module.exports.createAdvertisement = async (req, res, next) => {
             expiryDate: req.body.expiryDate,
         })
 
-        res.status(200).json(newAds);
+        res.status(200).json({
+            success: true,
+            advertisment: newAds
+        });
 
     } catch (error) {
         return res.status(400).json(
