@@ -34,10 +34,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Sets up passport
+const passportConfig = require('../config/local')(passport)
 app.use(passport.initialize());
 
 //routes
-app.use('/users', usersRouter);
+app.use('/api/auth', usersRouter);
 app.use('/api/advertisements', adlistRouter);
 
 // catch 404 and forward to error handler
