@@ -22,11 +22,11 @@ let authController = require('../controllers/auth');
 
 
 router.route('/')
-	.post(advertisementController.createAdvertisement)
+	.post(authController.requireAuth, advertisementController.createAdvertisement)
 	.get(advertisementController.getAdvertisements)
 
 router.route('/:id')
 	.get(advertisementController.getAdvertisement)
-	.patch(advertisementController.updateAdvertisement)
+	.patch(authController.requireAuth, advertisementController.updateAdvertisement)
 
 module.exports = router;
