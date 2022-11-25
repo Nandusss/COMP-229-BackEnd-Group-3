@@ -131,7 +131,7 @@ module.exports.createAdvertisement = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            advertisment: newAds
+            advertisement: newAds
         });
 
     } catch (error) {
