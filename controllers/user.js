@@ -1,17 +1,17 @@
 /*
-	Comp-229 Web Application Development Group 3
-	Chafanarosa Buy and Sell Used Products
-	This Website will enable users to post and view advertisements for used		
-	products
+  Comp-229 Web Application Development Group 3
+  Chafanarosa Buy and Sell Used Products
+  This Website will enable users to post and view advertisements for used		
+  products
 	
-	Developers
-	Fatimah Binti Yasin – 301193282
-	Nandagopan Dilip – 301166925
-	Chantelle Lawson – 301216199
-	Ronald Jr Ombao – 301213219
-	Santiago Sanchez Calle – 300648373
+  Developers
+  Fatimah Binti Yasin – 301193282
+  Nandagopan Dilip – 301166925
+  Chantelle Lawson – 301216199
+  Ronald Jr Ombao – 301213219
+  Santiago Sanchez Calle – 300648373
 
-	Copyright All Rights Reserved
+  Copyright All Rights Reserved
 */
 
 let User = require('../models/user');
@@ -36,10 +36,10 @@ function getErrorMessage(err) {
       default:
         message = 'Something went wrong';
     }
-  } 
+  }
   if (err.errors) {
     for (let errName in err.errors) {
-        if (err.errors[errName].message) 
+      if (err.errors[errName].message)
         message = err.errors[errName].message;
     }
   }
@@ -47,47 +47,47 @@ function getErrorMessage(err) {
   return message;
 };
 
-module.exports.signup = function(req, res, next) {
+module.exports.signup = function (req, res, next) {
 
-    let user = new User(req.body);
-    user.provider = 'local';
-    // console.log(user);
+  let user = new User(req.body);
+  user.provider = 'local';
+  // console.log(user);
 
-    user.save((err) => {
-      if (err) {
-        let message = getErrorMessage(err);
+  user.save((err) => {
+    if (err) {
+      let message = getErrorMessage(err);
 
-        return res.status(400).json(
-          {
-            success: false, 
-            message: message
-          }
-        );
-      }
-      return res.json(
+      return res.status(400).json(
         {
-          success: true, 
-          message: 'User created successfully!'
+          success: false,
+          message: message
         }
       );
-    });
+    }
+    return res.json(
+      {
+        success: true,
+        message: 'Registration is successfull!'
+      }
+    );
+  });
 };
 
-module.exports.signin = function(req, res, next){
+module.exports.signin = function (req, res, next) {
   passport.authenticate(
-    'login', 
-  async (err, user, info) => {
-    try {
-      if (err || !user) {
-        return res.status(400).json(
-            { 
-              success: false, 
+    'login',
+    async (err, user, info) => {
+      try {
+        if (err || !user) {
+          return res.status(400).json(
+            {
+              success: false,
               message: err || info.message
             }
           );
-      }
-  
-      req.login(
+        }
+
+        req.login(
           user,
           { session: false },
           async (error) => {
@@ -96,27 +96,26 @@ module.exports.signin = function(req, res, next){
             }
 
             // Generating the JWT token.
-            const payload = 
-              { 
-                id: user._id
-              };
+            const payload =
+            {
+              id: user._id
+            };
             const token = jwt.sign(
-              { 
+              {
                 payload: payload
-              }, 
-              config.SECRETKEY, 
-              { 
-                algorithm: 'HS512', 
+              },
+              config.SECRETKEY,
+              {
+                algorithm: 'HS512',
                 expiresIn: "30min"
               }
             );
-    
+
             return res.json(
-              { 
-                success: true, 
+              {
+                success: true,
                 token: token,
-                iat: new Date(jwt.decode(token).iat * 1000),
-                exp: new Date(jwt.decode(token).exp * 1000)
+                message: 'Login succesfully'
               }
             );
           }
@@ -125,8 +124,8 @@ module.exports.signin = function(req, res, next){
 
         console.log(error);
         return res.status(400).json(
-          { 
-            success: false, 
+          {
+            success: false,
             message: getErrorMessage(error)
           });
       }
@@ -135,22 +134,22 @@ module.exports.signin = function(req, res, next){
 }
 
 
-exports.myprofile = async function(req, res, next){
+exports.myprofile = async function (req, res, next) {
 
   try {
-    
+
     let id = req.payload.id;
-    let me = await User.findById(id).select('firstName lastName email username admin created');
+    let me = await User.findById(id).select('firstName lastName email username');
 
     res.status(200).json(me)
 
   } catch (error) {
     console.log(error);
-      return res.status(400).json(
-          { 
-              success: false, 
-              message: getErrorMessage(error)
-          }
-      );
+    return res.status(400).json(
+      {
+        success: false,
+        message: getErrorMessage(error)
+      }
+    );
   }
 }
