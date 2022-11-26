@@ -98,7 +98,10 @@ module.exports.signin = function (req, res, next) {
             // Generating the JWT token.
             const payload =
             {
-              id: user._id
+              _id: user._id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email
             };
             const token = jwt.sign(
               {
