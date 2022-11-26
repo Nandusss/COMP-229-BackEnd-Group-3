@@ -16,6 +16,7 @@
 
 // create a reference to the model
 let Advertisement = require('../models/advertisement');
+const user = require('../models/user');
 
 function getErrorMessage(err) {
     if (err.errors) {
@@ -34,7 +35,7 @@ module.exports.getAdvertisement = async function (req, res, next) {
     try {
         let advertisement = await Advertisement.findOne({ _id: req.params.id }).populate({
             path: 'owner',
-            select: 'firstName lastName email username admin created'
+            select: '_id username created'
         }).exec();
 
         res.status(200).json({
@@ -57,7 +58,7 @@ module.exports.getAdvertisements = async function (req, res, next) {
     try {
         let advertisements = await Advertisement.find().populate({
             path: 'owner',
-            select: 'firstName lastName email username admin created'
+            select: 'username created'
         });
 
         res.status(200).json({
@@ -93,7 +94,8 @@ module.exports.updateAdvertisement = async (req, res, next) => {
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
         }, { returnOriginal: false })
 
-        console.log(updatedItem)
+        
+        updatedItem = await updatedItem.populate({ path: 'owner', select: 'username created' })
         res.status(200).json({
             success: true,
             advertisement: updatedItem
@@ -127,7 +129,10 @@ module.exports.createAdvertisement = async (req, res, next) => {
             },
             activeDate: req.body.activeDate,
             expiryDate: req.body.expiryDate,
+            owner: req.payload._id
         })
+
+        newAds = await newAds.populate({ path: 'owner', select: 'username created' })
 
         res.status(200).json({
             success: true,
@@ -135,6 +140,7 @@ module.exports.createAdvertisement = async (req, res, next) => {
         });
 
     } catch (error) {
+        console.log(error.stack)
         return res.status(400).json(
             {
                 success: false,
