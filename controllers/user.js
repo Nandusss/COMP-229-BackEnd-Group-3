@@ -102,7 +102,6 @@ module.exports.signin = function (req, res, next) {
               firstName: user.firstName,
               lastName: user.lastName,
               email: user.email,
-              username: user.username
             };
             const token = jwt.sign(
               {
