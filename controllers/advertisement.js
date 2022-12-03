@@ -77,6 +77,7 @@ module.exports.getAdvertisements = async function (req, res, next) {
 }
 
 module.exports.updateAdvertisement = async (req, res, next) => {
+    console.log(req.body)
     try {
         let updatedItem = await Advertisement.findOneAndUpdate({ _id: req.params.id }, {
             adsTitle: req.body.adsTitle,
@@ -89,12 +90,13 @@ module.exports.updateAdvertisement = async (req, res, next) => {
                 condition: req.body.description.condition,
             },
             activeDate: req.body.activeDate,
-            expiryDate: req.body.expiryDate
+            expiryDate: req.body.expiryDate,
+            inquiries: req.body.inquiries
             // If it does not have an owner it assumes the ownership otherwise it transfers it.
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
         }, { returnOriginal: false })
 
-        
+
         updatedItem = await updatedItem.populate({ path: 'owner', select: 'username created' })
         res.status(200).json({
             success: true,
@@ -132,8 +134,13 @@ module.exports.createAdvertisement = async (req, res, next) => {
             owner: req.payload._id
         })
 
+        newAds.inquiries.push({
+            username: 'anony',
+            question: 'is this good?',
+            answer: ''
+        })
+        newAds.save();
         newAds = await newAds.populate({ path: 'owner', select: 'username created' })
-
         res.status(200).json({
             success: true,
             advertisement: newAds
@@ -155,4 +162,29 @@ module.exports.performDelete = (req, res, next) => {
         success: false,
         message: 'Method not allowed'
     })
+}
+
+module.exports.updateAdvertisementQuestions = async (req, res, next) => {
+    try {
+        let updatedItem = await Advertisement.findOneAndUpdate({ _id: req.params.id }, {
+            inquiries: req.body.inquiries
+            // If it does not have an owner it assumes the ownership otherwise it transfers it.
+            // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
+        }, { returnOriginal: false })
+
+        updatedItem = await updatedItem.populate({ path: 'owner', select: 'username created' })
+        console.log(updatedItem)
+        res.status(200).json({
+            success: true,
+            advertisement: updatedItem
+        })
+
+    } catch (error) {
+        return res.status(400).json(
+            {
+                success: false,
+                message: getErrorMessage(error)
+            }
+        );
+    }
 }

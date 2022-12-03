@@ -51,7 +51,17 @@ let advertisementSchema = mongoose.Schema(
         owner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
-        }
+        },
+        inquiries: [
+            {
+                username: {
+                    type: String,
+                    default: 'Anonymous'
+                },
+                question: String,
+                answer: String
+            }
+        ]
     },
     {
         collection: "Advertisements"

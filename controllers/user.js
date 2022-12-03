@@ -156,3 +156,7 @@ exports.myprofile = async function (req, res, next) {
     );
   }
 }
+
+exports.updateProfile = async function (req, res, next) {
+  
+}
