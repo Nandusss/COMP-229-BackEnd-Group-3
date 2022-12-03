@@ -102,6 +102,7 @@ module.exports.signin = function (req, res, next) {
               firstName: user.firstName,
               lastName: user.lastName,
               email: user.email,
+              username: user.username
             };
             const token = jwt.sign(
               {
@@ -158,5 +159,24 @@ exports.myprofile = async function (req, res, next) {
 }
 
 exports.updateProfile = async function (req, res, next) {
-  
+  try {
+    let id = req.payload._id;
+    let me = await User.findOneAndUpdate({ _id: id }, {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+      email: req.body.email
+    }, { returnOriginal: false }).select('firstName lastName email username');
+
+    res.status(200).json(me)
+
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(
+      {
+        success: false,
+        message: getErrorMessage(error)
+      }
+    );
+  }
 }
