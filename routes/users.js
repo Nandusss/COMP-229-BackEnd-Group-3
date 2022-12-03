@@ -21,6 +21,7 @@ let authController = require('../controllers/auth');
 /* GET users listing. */
 router.get('/me', authController.requireAuth, usersController.myprofile);
 
+router.patch('/user/', authController.requireAuth, usersController.updateProfile)
 // router.get('/signup', usersController.renderSignup);
 router.post('/signup', usersController.signup);
 
