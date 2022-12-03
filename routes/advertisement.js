@@ -29,4 +29,6 @@ router.route('/:id')
 	.get(advertisementController.getAdvertisement)
 	.patch(authController.requireAuth, advertisementController.updateAdvertisement)
 
+router.patch('/:id/inquiry', advertisementController.updateAdvertisementQuestions)
+
 module.exports = router;

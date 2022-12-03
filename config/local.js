@@ -31,7 +31,6 @@ module.exports = function (passport) {
             },
             async (token, done) => {
                 try {
-                    console.log(token);
                     return done(null, token.payload);
                 } catch (error) {
                     console.log(error);
