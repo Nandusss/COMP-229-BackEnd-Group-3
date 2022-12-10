@@ -135,12 +135,7 @@ module.exports.createAdvertisement = async (req, res, next) => {
             expiryDate: req.body.expiryDate,
             owner: req.payload._id
         })
-
-        newAds.inquiries.push({
-            username: 'anony',
-            question: 'is this good?',
-            answer: ''
-        })
+        
         newAds.save();
         newAds = await newAds.populate({ path: 'owner', select: 'username created' })
         res.status(200).json({
