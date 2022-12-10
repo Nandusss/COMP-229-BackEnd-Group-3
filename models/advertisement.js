@@ -45,7 +45,8 @@ let advertisementSchema = mongoose.Schema(
             condition: {
                 type: String,
                 enum: ['new', 'likeNew', 'used']
-            }
+            },
+            image: String,
         },
         // Adds relationship with User
         owner: {
