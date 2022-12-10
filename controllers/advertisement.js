@@ -88,6 +88,7 @@ module.exports.updateAdvertisement = async (req, res, next) => {
                 description: req.body.description.description,
                 category: req.body.description.category,
                 condition: req.body.description.condition,
+                image: req.body.description.image
             },
             activeDate: req.body.activeDate,
             expiryDate: req.body.expiryDate,
@@ -128,6 +129,7 @@ module.exports.createAdvertisement = async (req, res, next) => {
                 description: req.body.description.description,
                 category: req.body.description.category,
                 condition: req.body.description.condition,
+                image: req.body.description.image
             },
             activeDate: req.body.activeDate,
             expiryDate: req.body.expiryDate,
