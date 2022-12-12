@@ -35,7 +35,7 @@ module.exports.getAdvertisement = async function (req, res, next) {
     try {
         let advertisement = await Advertisement.findOne({ _id: req.params.id }).populate({
             path: 'owner',
-            select: '_id username created'
+            select: '_id username created email'
         }).exec();
 
         res.status(200).json({
@@ -58,7 +58,7 @@ module.exports.getAdvertisements = async function (req, res, next) {
     try {
         let advertisements = await Advertisement.find().populate({
             path: 'owner',
-            select: 'username created'
+            select: 'username created email'
         });
 
         res.status(200).json({
