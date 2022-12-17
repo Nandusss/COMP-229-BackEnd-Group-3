@@ -35,7 +35,7 @@ module.exports.getAdvertisement = async function (req, res, next) {
     try {
         let advertisement = await Advertisement.findOne({ _id: req.params.id }).populate({
             path: 'owner',
-            select: '_id username created'
+            select: '_id username created email'
         }).exec();
 
         res.status(200).json({
@@ -58,7 +58,7 @@ module.exports.getAdvertisements = async function (req, res, next) {
     try {
         let advertisements = await Advertisement.find().populate({
             path: 'owner',
-            select: 'username created'
+            select: 'username created email'
         });
 
         res.status(200).json({
@@ -135,9 +135,9 @@ module.exports.createAdvertisement = async (req, res, next) => {
             expiryDate: req.body.expiryDate,
             owner: req.payload._id
         })
-        
+
         newAds.save();
-        newAds = await newAds.populate({ path: 'owner', select: 'username created' })
+        newAds = await newAds.populate({ path: 'owner', select: 'username created email' })
         res.status(200).json({
             success: true,
             advertisement: newAds
@@ -169,7 +169,7 @@ module.exports.updateAdvertisementQuestions = async (req, res, next) => {
             // owner: (req.body.owner == null || req.body.owner == "")? req.payload.id : req.body.owner 
         }, { returnOriginal: false })
 
-        updatedItem = await updatedItem.populate({ path: 'owner', select: 'username created' })
+        updatedItem = await updatedItem.populate({ path: 'owner', select: 'username email created' })
         console.log(updatedItem)
         res.status(200).json({
             success: true,
